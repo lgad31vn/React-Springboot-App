@@ -19,6 +19,11 @@ const AddContact = () => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      proxy: {
+        host: '104.236.174.88',
+        port: 3128,
       },
     };
 

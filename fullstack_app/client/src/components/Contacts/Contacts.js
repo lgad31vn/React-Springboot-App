@@ -7,12 +7,14 @@ const axios = require('axios');
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
   useEffect(async () => {
-    const res = await axios.get('localhost:8080/api/contacts');
+    const config = {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+    };
+    const res = await axios.get('localhost:8080/api/contacts', config);
     console.log(res);
     setContacts(res.json());
-    // fetch('localhost:8080/api/contacts')
-    //   .then((res) => res.json())
-    //   .then((data) => setContacts(data));
   }, []);
   return (
     <div>
