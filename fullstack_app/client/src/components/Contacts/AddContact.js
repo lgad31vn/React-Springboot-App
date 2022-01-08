@@ -1,31 +1,77 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const AddContact = () => {
-    return(
-        <div class="row">
-        <form class="col s12">
-          <div class="row">
-            <div class="input-field col s6">
-              <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-              <label for="first_name">First Name</label>
-            </div>
-            <div class="input-field col s6">
-              <input id="last_name" type="text" class="validate">
-              <label for="last_name">Last Name</label>
-            </div>
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+  });
+
+  const { firstName, lastName, email } = formData;
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const contact = JSON.stringify({ firstName, lastName, email });
+    try {
+      await axios.post('localhost:8080/api/contacts', contact, config);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <div className='row'>
+      <form className='col s12' onSubmit={(e) => onSubmit(e)}>
+        <div className='row'>
+          <div className='input-field col s6'>
+            <input
+              placeholder='First Name'
+              name='firstName'
+              type='text'
+              value={firstName}
+              onChange={(e) => onChange(e)}
+            />
           </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="email" type="email" class="validate">
-              <label for="email">Email</label>
-            </div>
+          <div className='input-field col s6'>
+            <input
+              placeholder='Last Name'
+              name='lastName'
+              type='text'
+              value={lastName}
+              onChange={(e) => onChange(e)}
+            />
           </div>
-          <div class="row">
-            
+          <div className='input-field col s6'>
+            <input
+              placeholder='Email'
+              name='email'
+              type='text'
+              value={email}
+              onChange={(e) => onChange(e)}
+            />
           </div>
-        </form>
-      </div>
-    );
+          <button
+            className='waves-effect waves-light btn'
+            type='submit'
+            name='action'
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export default AddContact;
