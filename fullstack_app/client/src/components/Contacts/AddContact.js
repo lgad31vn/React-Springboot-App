@@ -29,7 +29,7 @@ const AddContact = () => {
 
     const contact = JSON.stringify({ firstName, lastName, email });
     try {
-      await axios.post('localhost:8080/api/contacts', contact, config);
+      await axios.post('http://localhost:8080/api/contacts', contact);
     } catch (err) {
       console.log(err);
     }

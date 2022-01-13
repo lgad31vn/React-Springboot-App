@@ -12,9 +12,9 @@ const Contacts = () => {
         'Access-Control-Allow-Origin': '*',
       },
     };
-    const res = await axios.get('localhost:8080/api/contacts', config);
-    console.log(res);
-    setContacts(res.json());
+    const res = await axios.get('http://localhost:8080/api/contacts');
+    console.log(typeof res.data[0]);
+    setContacts(res.data[0]);
   }, []);
   return (
     <div>
